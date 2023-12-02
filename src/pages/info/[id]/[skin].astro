@@ -1,0 +1,13 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const URL_SPLASH_LOADING = `https://ddragon.leagueoflegends.com/cdn/img/champion/`;
+
+const { skin } = Astro.params;
+
+---
+
+<Layout title={skin!}>
+
+  <img src={`${URL_SPLASH_LOADING}splash/${skin}.jpg`} alt="">
+</Layout>

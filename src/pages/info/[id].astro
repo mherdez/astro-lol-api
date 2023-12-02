@@ -22,6 +22,8 @@ const nameObject = Object.keys(data)[0];
 
 const { name, title, lore, spells, passive, skins, allytips, enemytips } =
   data[nameObject];
+console.log(data[nameObject]);
+console.log(skins);
 
 const letters = ['Q', 'W', 'E', 'R'];
 ---
@@ -89,17 +91,16 @@ const letters = ['Q', 'W', 'E', 'R'];
   {
     skins.map((skin: Skin) => {
       if (skin.num === 0) return;
+      const skinImage = `${id}_${skin.num}`;
       return (
         <article class="skins">
-          <img
-            src={`${URL_SPLASH_LOADING}splash/${name}_${skin.num}.jpg`}
-            alt={skin.name}
-          />
-          {
-            <div>
-              <p class="skin-name">{skin.name}</p>
-            </div>
-          }
+          <a href={`/info/${id}/${skinImage}`}>
+            <img
+              src={`${URL_SPLASH_LOADING}splash/${skinImage}.jpg`}
+              alt={skin.name}
+            />
+          </a>
+          <p class="skin-name">{skin.name}</p>
         </article>
       );
     })
@@ -135,7 +136,7 @@ const letters = ['Q', 'W', 'E', 'R'];
   .card img {
     width: 90%;
     border-radius: 10px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, .8);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8);
   }
   .title {
     font-size: 2rem;
@@ -162,7 +163,7 @@ const letters = ['Q', 'W', 'E', 'R'];
     gap: 1rem;
     width: 90%;
     margin: 2rem auto;
-    box-shadow: 5px 5px 15px rgba(128, 128, 128, .5);
+    box-shadow: 5px 5px 15px rgba(128, 128, 128, 0.5);
   }
   .spells img {
     width: 100px;
@@ -175,7 +176,7 @@ const letters = ['Q', 'W', 'E', 'R'];
   .spell-description {
     font-size: 1rem;
     line-height: 1.5rem;
-    opacity: .7;
+    opacity: 0.7;
     padding: 0 1rem 0 0;
   }
   .skins {
