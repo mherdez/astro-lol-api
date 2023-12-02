@@ -18,14 +18,14 @@ const URL_IMG_CHAMPION_PASSIVE_SPELL = `https://ddragon.leagueoflegends.com/cdn/
 const response = await fetch(`${URL_API}${id}.json`);
 const { data } = await response.json();
 const nameObject = Object.keys(data)[0];
-// console.log(data);
 
 const { name, title, lore, spells, passive, skins, allytips, enemytips } =
   data[nameObject];
-console.log(data[nameObject]);
-console.log(skins);
 
 const letters = ['Q', 'W', 'E', 'R'];
+
+const textoPlano = (texto: string) => texto.replace(/<[^>]*>/g, '');
+
 ---
 
 <Layout title={id!}>
@@ -46,7 +46,7 @@ const letters = ['Q', 'W', 'E', 'R'];
         />
         <div>
           <p class="spell-name">(P) {passive.name}</p>
-          <p class="spell-description">{passive.description}</p>
+          <p class="spell-description">{textoPlano(passive.description)}</p>
         </div>
       </article>
     )
@@ -62,7 +62,7 @@ const letters = ['Q', 'W', 'E', 'R'];
           <p class="spell-name">
             ({letters[index]}) {name}
           </p>
-          <p class="spell-description">{description}</p>
+          <p class="spell-description">{textoPlano(description)}</p>
         </div>
       </article>
     ))
@@ -71,7 +71,7 @@ const letters = ['Q', 'W', 'E', 'R'];
   <div class="tips">
     {
       allytips.length > 0 ? (
-        allytips.map((tip: string) => <p>{tip}</p>)
+        allytips.map((tip: string) => <p>{textoPlano(tip)}</p>)
       ) : (
         <h3>No hay tips</h3>
       )
@@ -81,7 +81,7 @@ const letters = ['Q', 'W', 'E', 'R'];
   <div class="tips">
     {
       enemytips.length > 0 ? (
-        enemytips.map((tip: string) => <p>{tip}</p>)
+        enemytips.map((tip: string) => <p>{textoPlano(tip)}</p>)
       ) : (
         <h3>No hay tips</h3>
       )
