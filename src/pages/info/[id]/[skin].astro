@@ -8,6 +8,11 @@ const { skin } = Astro.params;
 ---
 
 <Layout title={skin!}>
-
   <img src={`${URL_SPLASH_LOADING}splash/${skin}.jpg`} alt="">
 </Layout>
+
+<style>
+  img {
+    width: 100%;
+  }
+</style>
