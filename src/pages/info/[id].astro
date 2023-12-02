@@ -1,0 +1,194 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+interface Skin {
+  id: string;
+  num: number;
+  name: string;
+  chromas: boolean;
+  description: string;
+}
+
+const { id } = Astro.params;
+const URL_CHAMPIONS = `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/es_MX/champion.json`;
+const URL_API = `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/es_MX/champion/`;
+const URL_SPLASH_LOADING = `https://ddragon.leagueoflegends.com/cdn/img/champion/`;
+const URL_IMG_CHAMPION_PASSIVE_SPELL = `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/`;
+
+const response = await fetch(`${URL_API}${id}.json`);
+const { data } = await response.json();
+const nameObject = Object.keys(data)[0];
+console.log(data);
+
+const { name, title, lore, spells, passive, skins, allytips, enemytips } =
+  data[nameObject];
+
+const letters = ['Q', 'W', 'E', 'R'];
+---
+
+<Layout title={id!}>
+  <article class="card">
+    <img src={`${URL_SPLASH_LOADING}loading/${id}_0.jpg`} alt={name} />
+    <div class="info">
+      <p class="title">{name} {title}</p>
+      <p class="blurb">{lore}</p>
+    </div>
+  </article>
+  {
+    (
+      <article class="spells">
+        <img
+          src={`${URL_IMG_CHAMPION_PASSIVE_SPELL}passive/${passive.image.full}`}
+          alt={name}
+        />
+        <div>
+          <p class="spell-name">(P) {passive.name}</p>
+          <p class="spell-description">{passive.description}</p>
+        </div>
+      </article>
+    )
+  }
+  {
+    spells.map(({ name, description, id }: Skin, index: number) => (
+      <article class="spells">
+        <img
+          src={`${URL_IMG_CHAMPION_PASSIVE_SPELL}spell/${id}.png`}
+          alt={name}
+        />
+        <div>
+          <p class="spell-name">
+            ({letters[index]}) {name}
+          </p>
+          <p class="spell-description">{description}</p>
+        </div>
+      </article>
+    ))
+  }
+  <h2>Ally Tips</h2>
+  <div class="tips">
+    {
+      allytips.length > 0 ? (
+        allytips.map((tip: string) => <p>{tip}</p>)
+      ) : (
+        <h3>No hay tips</h3>
+      )
+    }
+  </div>
+  <h2>Enemy Tips</h2>
+  <div class="tips">
+    {
+      enemytips.length > 0 ? (
+        enemytips.map((tip: string) => <p>{tip}</p>)
+      ) : (
+        <h3>No hay tips</h3>
+      )
+    }
+  </div>
+  <h2>Skins</h2>
+  {
+    skins.map((skin: Skin) => {
+      if (skin.num === 0) return;
+      return (
+        <article class="skins">
+          <img
+            src={`${URL_SPLASH_LOADING}splash/${name}_${skin.num}.jpg`}
+            alt={skin.name}
+          />
+          {
+            <div>
+              <p class="skin-name">{skin.name}</p>
+            </div>
+          }
+        </article>
+      );
+    })
+  }
+</Layout>
+
+<style>
+  h1,
+  h2,
+  h3 {
+    text-align: center;
+  }
+  h2 {
+    margin: 2rem 0;
+  }
+  .card {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    border: 5px solid gray;
+    padding: 1rem;
+    margin: 50px auto;
+    min-width: 625px;
+  }
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  .blurb {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+  .info {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    padding: 2rem;
+  }
+  .spells {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border: 2px solid gray;
+    gap: 1rem;
+    width: 70%;
+    margin: 2rem auto;
+    box-shadow: 5px 5px 15px rgba(128, 128, 128, .5);
+  }
+  .spells img {
+    width: 100px;
+    height: 100px;
+  }
+  .spell-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .spell-description {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  .skins {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border: 2px solid gray;
+    width: 70%;
+    margin: 1rem auto;
+    flex-direction: column;
+  }
+  .skins img {
+    width: 100%;
+  }
+  .skin-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding: 1rem;
+  }
+  .tips {
+    width: 70%;
+    margin: 0 auto;
+    border: 2px solid white;
+    padding: 1rem;
+    margin: 2rem auto;
+  }
+  .tips p {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+</style>
