@@ -18,7 +18,7 @@ const URL_IMG_CHAMPION_PASSIVE_SPELL = `https://ddragon.leagueoflegends.com/cdn/
 const response = await fetch(`${URL_API}${id}.json`);
 const { data } = await response.json();
 const nameObject = Object.keys(data)[0];
-console.log(data);
+// console.log(data);
 
 const { name, title, lore, spells, passive, skins, allytips, enemytips } =
   data[nameObject];
@@ -28,12 +28,13 @@ const letters = ['Q', 'W', 'E', 'R'];
 
 <Layout title={id!}>
   <article class="card">
+    <h1 class="title">{name}: {title}</h1>
     <img src={`${URL_SPLASH_LOADING}loading/${id}_0.jpg`} alt={name} />
     <div class="info">
-      <p class="title">{name} {title}</p>
       <p class="blurb">{lore}</p>
     </div>
   </article>
+  <h2>Spells</h2>
   {
     (
       <article class="spells">
@@ -106,40 +107,52 @@ const letters = ['Q', 'W', 'E', 'R'];
 </Layout>
 
 <style>
+  body {
+    width: 100%;
+  }
   h1,
   h2,
   h3 {
     text-align: center;
+    margin: 0;
   }
   h2 {
-    margin: 2rem 0;
+    margin: 2rem auto;
+    border-top: 2px solid white;
+    width: 90%;
+    padding-top: 2rem;
+    margin-top: 3rem;
   }
   .card {
-    width: 70%;
+    width: 95%;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
-    border: 5px solid gray;
-    padding: 1rem;
-    margin: 50px auto;
-    min-width: 625px;
+    gap: 1rem;
+    flex-direction: column;
+  }
+  .card img {
+    width: 90%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, .8);
   }
   .title {
     font-size: 2rem;
     font-weight: bold;
+    text-align: center;
+    margin: 1rem auto;
   }
   .blurb {
-    font-size: 1.2rem;
-    line-height: 2rem;
+    font-size: 1.3rem;
+    line-height: 2.2rem;
   }
   .info {
     display: flex;
     justify-content: start;
     align-items: start;
     flex-direction: column;
-    padding: 2rem;
+    padding: 0 2rem;
   }
   .spells {
     display: flex;
@@ -147,7 +160,7 @@ const letters = ['Q', 'W', 'E', 'R'];
     align-items: center;
     border: 2px solid gray;
     gap: 1rem;
-    width: 70%;
+    width: 90%;
     margin: 2rem auto;
     box-shadow: 5px 5px 15px rgba(128, 128, 128, .5);
   }
@@ -162,6 +175,8 @@ const letters = ['Q', 'W', 'E', 'R'];
   .spell-description {
     font-size: 1rem;
     line-height: 1.5rem;
+    opacity: .7;
+    padding: 0 1rem 0 0;
   }
   .skins {
     display: flex;
@@ -175,20 +190,15 @@ const letters = ['Q', 'W', 'E', 'R'];
   .skins img {
     width: 100%;
   }
-  .skin-name {
-    font-size: 1.8rem;
-    font-weight: bold;
-    padding: 1rem;
-  }
   .tips {
     width: 70%;
     margin: 0 auto;
-    border: 2px solid white;
+    border: 2px solid gray;
     padding: 1rem;
     margin: 2rem auto;
   }
   .tips p {
     font-size: 1.2rem;
-    line-height: 1.5rem;
+    line-height: 1.7rem;
   }
 </style>
