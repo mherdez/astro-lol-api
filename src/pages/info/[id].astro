@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { VERSION } from '../../helpers/constants'
 
 interface Skin {
   id: string;
@@ -10,10 +11,10 @@ interface Skin {
 }
 
 const { id } = Astro.params;
-const URL_CHAMPIONS = `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/es_MX/champion.json`;
-const URL_API = `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/es_MX/champion/`;
+const URL_CHAMPIONS = `https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/es_MX/champion.json`;
+const URL_API = `https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/es_MX/champion/`;
 const URL_SPLASH_LOADING = `https://ddragon.leagueoflegends.com/cdn/img/champion/`;
-const URL_IMG_CHAMPION_PASSIVE_SPELL = `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/`;
+const URL_IMG_CHAMPION_PASSIVE_SPELL = `https://ddragon.leagueoflegends.com/cdn/${VERSION}/img/`;
 
 const response = await fetch(`${URL_API}${id}.json`);
 const { data } = await response.json();

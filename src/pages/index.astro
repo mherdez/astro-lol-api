@@ -1,10 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { VERSION } from '../helpers/constants';
 
-const URL_CHAMPIONS = `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/es_MX/champion.json`;
+const URL_CHAMPIONS = `https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/es_MX/champion.json`;
 
 // https://ddragon.leagueoflegends.com/cdn/13.23.1/data/es_MX/champion/Zoe.json
-const URL_API = `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/es_MX/champion/`;
+const URL_API = `https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/es_MX/champion/`;
 
 // https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg
 // https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg
@@ -13,7 +14,7 @@ const URL_SPLASH_LOADING = `https://ddragon.leagueoflegends.com/cdn/img/champion
 // https://ddragon.leagueoflegends.com/cdn/13.23.1/img/champion/Aatrox.png
 // https://ddragon.leagueoflegends.com/cdn/13.23.1/img/passive/Anivia_P.png
 // https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/FlashFrost.png
-const URL_IMG_CHAMPION_PASSIVE_SPELL = `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/`;
+const URL_IMG_CHAMPION_PASSIVE_SPELL = `https://ddragon.leagueoflegends.com/cdn/${VERSION}/img/`;
 
 const urlmapa =
   'https://ddragon.leagueoflegends.com/cdn/6.8.1/img/map/map1.png';
